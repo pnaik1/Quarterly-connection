@@ -1,79 +1,85 @@
 # Stats Command
 
-Quick metrics from GitHub and Jira without generating a narrative report.
+Show quick metrics from GitHub and Jira for the current quarter — no narrative, no report.
 
-## Instructions
+---
 
-When the user runs `/stats`:
+## Step 1 — Load Configuration
 
-### Step 1: Load Configuration
+Read `config/company-context.json` once. Extract GitHub and Jira credentials.
 
-Read `config/company-context.json` for GitHub and Jira settings.
+**If config missing:** "Run `/setup` first." → **STOP.**
 
-### Step 2: Determine Current Quarter
+---
 
-Calculate quarter based on today's date.
+## Step 2 — Determine Quarter
 
-### Step 3: Fetch Metrics (ONE PASS)
+Calculate from today's date (see quarter ranges in `.cursorrules`).
+If user specified a quarter (e.g., `/stats Q3 2025`), use that instead.
+
+---
+
+## Step 3 — Fetch Metrics (ONE PASS, all parallel)
 
 **GitHub PRs:**
 ```
-mcp_github_search_issues(
-  q: "is:pr author:{username} repo:{owner}/{repo} merged:{start_date}..{end_date}",
-  perPage: 100
-)
+tool: mcp_github_search_issues
+q: "is:pr author:{username} repo:{owner}/{repo} merged:{START}..{END}"
+perPage: 100
 ```
 
 **Jira Epics:**
 ```
-mcp_mcp-atlassian_jira_search(
-  jql: "assignee = \"{jira_email}\" AND issuetype = Epic AND updated >= {start_date}",
-  limit: 50
-)
+tool: mcp_mcp-atlassian_jira_search
+jql: "assignee = \"{jira_email}\" AND issuetype = Epic AND updated >= {START} ORDER BY updated DESC"
+limit: 50
 ```
 
 **Jira Tickets:**
 ```
-mcp_mcp-atlassian_jira_search(
-  jql: "assignee = \"{jira_email}\" AND issuetype IN (Story, Task, Bug) AND resolution IS NOT EMPTY AND updated >= {start_date}",
-  limit: 100
-)
+tool: mcp_mcp-atlassian_jira_search
+jql: "assignee = \"{jira_email}\" AND issuetype IN (Story, Task, Bug) AND resolution IS NOT EMPTY AND updated >= {START} ORDER BY updated DESC"
+limit: 100
 ```
 
 **Local Logs:**
-Read `data/achievements/{YEAR}/Q{N}_log.md`
+Read `data/achievements/{YEAR}/Q{N}_log.md`.
 
-### Step 4: Display Stats
+**Fallbacks:** If any source returns 0 results or errors, show `N/A` for that section — do not abort.
+
+---
+
+## Step 4 — Display Stats
 
 ```
-📊 Q{N} {YEAR} QUICK STATS
+📊 {QUARTER} {YEAR} QUICK STATS  ({MONTHS})
 
 💻 GitHub Activity
-├─ PRs Merged: {count}
-└─ Repositories: {repo_list}
+├─ PRs Merged:   {count}      (unavailable if GitHub errored)
+└─ Repos Tracked: {repo list}
 
 📋 Jira Activity
-├─ Epics Owned: {total_epics}
-├─ Epics Completed: {completed_epics}
-├─ Tickets Resolved: {resolved_tickets}
-└─ By Type: {stories} Stories, {tasks} Tasks, {bugs} Bugs
+├─ Epics Owned:     {total}
+├─ Epics Completed: {completed}
+├─ Tickets Resolved: {resolved}
+└─ By Type: {N} Stories · {N} Tasks · {N} Bugs
 
 📝 Local Logs
-├─ Achievements: {count}
-├─ Challenges: {count}
-├─ Collaborations: {count}
-└─ Total Entries: {total}
+├─ Achievements:    {count}
+├─ Challenges:      {count}
+├─ Collaborations:  {count}
+└─ Total Entries:   {total}
 
-💡 Run /report to generate full narrative report
+─────────────────────────────
+💡 /report → full narrative   /preview → see all raw data
 ```
+
+**→ STOP. Do not generate a report or ask questions.**
+
+---
 
 ## Behavior
 
-- Fetch each data source ONCE
-- Do NOT generate any narrative or report
-- Display stats and STOP
-- Do NOT ask questions or prompt for more input
-
-
-
-
+- Fetch each source once — no retries
+- Show `N/A` for any unavailable source, never abort
+- Display stats and stop — no narrative, no follow-up questions

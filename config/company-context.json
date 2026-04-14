@@ -50,18 +50,18 @@
   },
   "career_goals": {
     "short_term": [
-      "Lead more cross-functional initiatives",
-      "Complete Gen AI 3.0 platform delivery"
+      "Develop Gen AI BFF layer - connect AI Playground UI with Llama Stack backend services",
+      "Complete Guardrails BFF integration (RHOAIENG-39902)"
     ],
     "long_term": [
       "Grow into technical leadership role",
       "Become subject matter expert in AI/ML platforms"
     ],
     "skills_to_develop": [
-      "System design and architecture",
-      "Technical writing and documentation",
-      "Stakeholder communication"
+      "Backend API design and architecture",
+      "Go/Golang development",
+      "System integration patterns"
     ],
-    "quarter": "Q4 2025"
+    "quarter": "Q1 2026"
   }
 }

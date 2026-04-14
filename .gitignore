@@ -1,0 +1,10 @@
+# Generated reports (open HTML in browser, or use /export for PDF)
+*-report.html
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo

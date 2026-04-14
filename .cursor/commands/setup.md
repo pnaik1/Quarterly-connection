@@ -1,67 +1,94 @@
 # Setup Command
 
-Initialize and configure the Quarterly Connection Strategist with company context and integrations.
+Initialize or update the Quarterly Connection Strategist configuration.
 
-## Instructions
+---
 
-When the user runs this command, guide them through a setup flow:
+## Step 1 — Check Existing Configuration
 
-### Step 1: Check Existing Configuration
+Read `config/company-context.json`.
 
-1. Read `config/company-context.json`
-2. If exists and initialized, show current config and ask if they want to update
-3. If not exists, start fresh setup
+- If it exists and `initialized: true`, display current settings:
+  ```
+  ⚙️ CURRENT CONFIGURATION
 
-### Step 2: Gather Information
+  Company:  {name}
+  Profile:  {name} · {role} · {team}
+  GitHub:   {username} tracking {repo list}
+  Jira:     {email} · Projects: {project list}
 
-Ask for each piece of information ONE AT A TIME:
+  What would you like to update? (company / profile / github / jira / all)
+  ```
+  **→ STOP. Wait for user's choice before proceeding.**
 
-**Company Information:**
+- If missing or `initialized: false`, say "No config found — let's set it up." and go to Step 2.
+
+---
+
+## Step 2 — Gather Information (One Question at a Time)
+
+Ask each question and wait for the answer before asking the next.
+
+**Company:**
 ```
 🏢 What company do you work for?
 ```
-- After they respond, do ONE web search: "{company name} company values mission culture"
-- Extract core values and strategic priorities
-- Show what was found and ask for confirmation
+After their answer → do ONE web search: `{company} company values mission`
+Show the values you found and ask: "Does this look right, or would you like to adjust anything?"
+Wait for confirmation before continuing.
 
-**User Profile:**
+**Profile:**
 ```
-👤 What is your name?
+👤 What is your full name?
+```
+Wait → then:
+```
 📋 What is your role/title?
+```
+Wait → then:
+```
 🏠 What team are you on?
 ```
 
-**GitHub Integration:**
+**GitHub:**
 ```
-💻 What is your GitHub username? (for filtering PRs)
-📦 What repositories should I track? 
-   (Format: owner/repo, e.g., "opendatahub-io/odh-dashboard")
-   You can list multiple, separated by commas.
+💻 What is your GitHub username? (used to filter PRs — e.g., "pnaik1")
+```
+Wait → then:
+```
+📦 Which repositories should I track?
+   Format: owner/repo — you can list multiple separated by commas.
+   Example: opendatahub-io/odh-dashboard
 ```
 
-**Jira Integration:**
+**Jira:**
 ```
 📧 What is your Jira email address?
-🎫 What Jira project keys should I search? 
-   (Optional, e.g., "RHOAIENG, RHAIENG")
+```
+Wait → then:
+```
+🎫 Which Jira project keys should I search? (optional — e.g., "RHOAIENG, RHAIENG")
+   Press Enter to skip.
 ```
 
-### Step 3: Save Configuration
+---
 
-Save all gathered information to `config/company-context.json` in this structure:
+## Step 3 — Save Configuration
+
+Write `config/company-context.json` with this structure:
 
 ```json
 {
   "company": {
     "name": "{company_name}",
     "initialized": true,
-    "last_updated": "{today's date}"
+    "last_updated": "{today YYYY-MM-DD}"
   },
   "core_values": [
-    {"name": "Value 1", "description": "Description..."}
+    { "name": "Value Name", "description": "Description from web search" }
   ],
   "strategic_priorities": {
-    "year": 2025,
+    "year": {current year},
     "priorities": ["Priority 1", "Priority 2"]
   },
   "user_profile": {
@@ -69,41 +96,43 @@ Save all gathered information to `config/company-context.json` in this structure
     "role": "{role}",
     "team": "{team}",
     "jira_email": "{email}",
-    "jira_projects": ["{project1}", "{project2}"]
+    "jira_projects": ["{PROJECT1}", "{PROJECT2}"]
   },
   "github": {
     "author": "{username}",
     "repositories": [
-      {"owner": "{owner}", "repo": "{repo}"}
+      { "owner": "{owner}", "repo": "{repo}" }
     ]
   }
 }
 ```
 
-### Step 4: Confirm
+---
+
+## Step 4 — Confirm and Stop
 
 ```
-✅ Setup complete! Your configuration has been saved.
+✅ Setup complete!
 
-📊 Ready to track:
-   • GitHub: {username} @ {repo list}
-   • Jira: {email} @ {project list}
-   • Company: {company_name}
+📊 Now tracking:
+   Company:  {company_name}
+   GitHub:   {username} → {repo list}
+   Jira:     {email} → {project list}
+   Profile:  {name} · {role} · {team}
 
-Try these commands next:
-   /log - Add your first achievement
-   /status - Check current quarter info
-   /report - Generate your quarterly report
+Try these next:
+   /log    — Add your first achievement
+   /status — See current quarter info
+   /report — Generate your quarterly report
 ```
+
+**→ STOP. Do not automatically run any other command.**
+
+---
 
 ## Behavior
 
-- Ask questions ONE at a time
-- Do ONE web search for company values (not multiple)
-- Save configuration ONCE
-- After saving, STOP and wait for user
-- Do NOT automatically run other commands after setup
-
-
-
-
+- Ask questions one at a time — never dump all questions at once
+- Do exactly one web search for company values
+- Save configuration once — don't re-read to verify
+- On partial update (user chose "github" only), update only that section, preserve the rest

@@ -1,41 +1,64 @@
-# 📊 Quarterly Connection Strategist
+# Quarterly Connection Strategist
 
-> An AI-powered personal planning system for quarterly reviews using Cursor and markdown files.
-
-Transform your work data into compelling quarterly narratives. Log achievements naturally, and the AI organizes everything and generates polished reports.
+An AI-powered quarterly review system that lives inside Cursor. Log your work naturally throughout the quarter, then generate polished, data-backed reports by pulling directly from GitHub and Jira.
 
 ---
 
-## 🚀 Quick Start
+## Prerequisites
 
-### 1. Open in Cursor AI
+Before using this repo, you need:
 
-Open this project folder in **Cursor AI** (not VS Code).
+1. **[Cursor](https://cursor.sh)** — this is a Cursor-native project (not plain VS Code)
+2. **MCP: GitHub** — for fetching merged PRs ([setup guide](https://docs.cursor.com/context/model-context-protocol))
+3. **MCP: Atlassian** — for fetching Jira tickets ([setup guide](https://docs.cursor.com/context/model-context-protocol))
 
-### 2. Run Setup
+> Without GitHub/Jira MCP tools, logging and manual reporting still work — you just won't get auto-fetched data.
 
-Type in the chat:
+---
+
+## Quick Start
+
+### Step 1 — Open in Cursor
+
+Clone or download this repo and open the folder in Cursor (File → Open Folder).
+
+### Step 2 — Configure
+
+In the Cursor chat panel, type:
 
 ```
 /setup
 ```
 
-The agent will guide you through:
+The agent walks you through:
+- Company name (auto-fetches values from the web)
+- Your name, role, and team
+- GitHub username and repositories to track
+- Jira email and project keys
 
-- 🏢 Company name → Auto-fetches values & priorities
-- 👤 Your name, role, team
-- 💻 GitHub username & repositories to track
-- 📧 Jira email & project keys
+All saved to `config/company-context.json`.
 
-### 3. Start Logging
+### Step 3 — Set Goals
 
-Throughout the quarter, capture your wins:
+```
+/goals set
+```
+
+Define what you want to accomplish this quarter. Stored alongside your config.
+
+### Step 4 — Log Throughout the Quarter
+
+Capture wins as they happen — don't wait until report time:
 
 ```
 /log Shipped new API gateway, reducing response times by 45%
+/log [Challenge]: Debugged race condition in payment system affecting prod
+/log [Collaboration]: Mentored two engineers on testing patterns
 ```
 
-### 4. Generate Your Report
+The AI auto-categorizes entries and saves them to `data/achievements/{YEAR}/Q{N}_log.md`.
+
+### Step 5 — Generate Your Report
 
 At quarter end:
 
@@ -43,247 +66,200 @@ At quarter end:
 /report
 ```
 
-The AI fetches GitHub PRs, Jira tickets, combines with your logs, asks reflection questions, and generates a beautiful HTML report.
+The agent fetches your GitHub PRs and Jira tickets, combines them with your logs, asks three reflection questions, then writes a polished Markdown + HTML report.
 
 ---
 
-## 📝 Commands
+## All Commands
 
-All commands work in Cursor chat. Type `/` to see available commands.
+Commands work with or without the `/` prefix.
 
-### Getting Started
+### Setup & Profile
 
-| Command    | What It Does                       |
-| ---------- | ---------------------------------- |
-| `/help`    | Show all commands with examples    |
-| `/setup`   | Configure company & integrations   |
-| `/profile` | Update your name, role, team       |
-| `/status`  | See current quarter & entry counts |
+| Command | What it does |
+|---------|-------------|
+| `/setup` | Configure company, GitHub, Jira, and your profile |
+| `/profile` | Update your name, role, or team |
+| `/status` | Show current quarter dates and log entry counts |
+| `/goals` | View career goals for this quarter |
+| `/goals set` | Set new short-term and long-term goals |
+| `/help` | Show this command list inside the chat |
 
-### Logging Achievements
+### Logging
 
-| Command                   | What It Does                       |
-| ------------------------- | ---------------------------------- |
-| `/log <text>`             | Add achievement (auto-categorized) |
-| `/log [Category]: <text>` | Add with specific category         |
-| `/logs`                   | View current quarter's entries     |
-| `/logs Q2 2025`           | View specific quarter              |
-| `/edit`                   | Edit or delete entries             |
+| Command | What it does |
+|---------|-------------|
+| `/log <text>` | Add an achievement (auto-categorized) |
+| `/log [Category]: <text>` | Add with a specific category |
+| `/logs` | View this quarter's entries |
+| `/logs Q2 2025` | View a specific quarter's entries |
+| `/edit` | Edit or delete existing entries |
 
-**Categories:** Achievement, Challenge, Skill Development, Collaboration, Project Update, Recognition
+**Log categories:** Achievement · Challenge · Skill Development · Collaboration · Project Update · Recognition
 
 ### Reporting
 
-| Command           | What It Does                   |
-| ----------------- | ------------------------------ |
-| `/preview`        | See all data before generating |
-| `/stats`          | Quick metrics only             |
-| `/report`         | Full report (current quarter)  |
-| `/report Q3 2024` | Report for specific quarter    |
-| `/compare Q3 Q4`  | Compare two quarters           |
-| `/export`         | PDF export instructions        |
-
-### Goal Tracking
-
-| Command      | What It Does       |
-| ------------ | ------------------ |
-| `/goals`     | View current goals |
-| `/goals set` | Set new goals      |
+| Command | What it does |
+|---------|-------------|
+| `/preview` | Fetch all data and show it — without generating the report |
+| `/stats` | Quick metrics only (no narrative) |
+| `/report` | Full report for the current quarter |
+| `/report Q3 2025` | Full report for a specific quarter |
+| `/compare Q3 Q4` | Side-by-side metric comparison |
+| `/export` | Instructions for saving the HTML report as PDF |
 
 ---
 
-## 🗂️ Project Structure
-
-```
-Quarterly-connection/
-├── .cursor/
-│   └── commands/              # Cursor AI slash commands
-│       ├── help.md
-│       ├── setup.md
-│       ├── log.md
-│       ├── report.md
-│       └── ...
-├── .cursorrules               # Agent behavior & anti-loop safeguards
-├── config/
-│   └── company-context.json   # Company values, user profile, integrations
-├── data/
-│   ├── achievements/
-│   │   └── 2025/
-│   │       └── Q4_log.md      # Your achievement logs
-│   └── templates/
-│       ├── quarterly-report-template.md
-│       └── quarterly-report-template.html
-└── Q4-2025-report.html        # Generated HTML report
-```
-
----
-
-## 🔧 How It Works
-
-### The Magic
-
-1. **You Just Talk** - No forms, just describe your work naturally
-2. **AI Organizes** - Auto-categorizes and stores your entries
-3. **Data Integration** - Pulls from GitHub & Jira via MCP tools
-4. **Narrative Generation** - Creates compelling, evidence-backed reports
-
-### Report Generation Flow
+## Report Flow
 
 ```
 /report
-    ↓
-┌─────────────────────────────────────┐
-│ 1. Fetch GitHub PRs (merged)        │
-│ 2. Fetch Jira Epics & Tickets       │
-│ 3. Load local achievement logs      │
-└─────────────────────────────────────┘
-    ↓
-┌─────────────────────────────────────┐
-│ 4. Present summary                  │
-│ 5. Ask 3 reflection questions       │
-│    - Which values did you exemplify?│
-│    - Biggest impact?                │
-│    - Skills to develop?             │
-└─────────────────────────────────────┘
-    ↓
-┌─────────────────────────────────────┐
-│ 6. Generate Markdown report         │
-│ 7. Generate HTML report             │
-└─────────────────────────────────────┘
+   │
+   ├─ Step 1: Load config (company, GitHub, Jira credentials)
+   │
+   ├─ Step 2: Fetch data in parallel
+   │           ├─ GitHub: merged PRs by author + date range
+   │           ├─ Jira: epics and resolved tickets
+   │           └─ Local: achievement log entries
+   │
+   ├─ Step 3: Show data summary ──► STOP, ask 3 reflection questions:
+   │           1. Which company values did you exemplify?
+   │           2. What was your biggest impact?
+   │           3. What skill do you want to develop next quarter?
+   │
+   ├─ Step 4: Generate Markdown report (after you answer)
+   │
+   └─ Step 5: Generate HTML report → {QUARTER}-{YEAR}-report.html
+```
+
+The HTML report is print-optimized. Open it in Chrome and use Cmd+P → Save as PDF.
+
+---
+
+## Project Structure
+
+```
+Quarterly-connection/
+├── .cursorrules                      # Agent persona + command routing (95 lines)
+├── .cursor/
+│   └── commands/                     # One file per command — single source of truth
+│       ├── report.md
+│       ├── log.md
+│       ├── setup.md
+│       ├── stats.md
+│       ├── preview.md
+│       └── ... (13 commands total)
+├── config/
+│   └── company-context.json          # Your profile, company values, GitHub/Jira creds
+├── data/
+│   ├── achievements/
+│   │   ├── 2025/                     # Q4_log.md etc.
+│   │   └── 2026/                     # Q1_log.md etc.
+│   └── templates/
+│       ├── quarterly-report-template.md
+│       └── quarterly-report-template.html
+├── Q1-2026-report.html               # Generated — open in browser
+└── .gitignore
 ```
 
 ---
 
-## 📋 Report Output
+## How the Agent Works
 
-The generated report includes:
+This project is structured as a **3-layer Cursor agent**:
 
-1. **Key Achievements & Impact** - What you did → Why it mattered → Result
-2. **Alignment with Company Strategy** - Connection to values and priorities
-3. **Growth & Development** - Lessons learned, next quarter goals
-4. **Data-Driven Evidence** - GitHub PRs and Jira tickets as proof
+```
+.cursorrules  (95 lines)
+   Persona, rules, and a routing table.
+   No command logic lives here.
+      │
+      ▼
+.cursor/commands/*.md
+   One file per command. Each file owns its full behavior:
+   steps, error handling, and an explicit STOP signal.
+      │
+      ▼
+MCP Tools (GitHub + Jira)
+   Called once per session when a command requires it.
+   Results are never re-fetched to "verify."
+```
 
-### Output Files
+### Why this structure
 
-- **Markdown** - Displayed in chat
-- **HTML** - `Q4-2025-report.html` - Beautiful, printable report
+- **`.cursorrules` is short on purpose.** The longer the system prompt, the less reliably the AI follows instructions at the end. At 95 lines it stays fully in context.
+- **Commands are self-contained.** Updating `/report` means editing one file, not hunting through a 700-line rules file.
+- **Error handling is explicit.** Every command specifies what to do when GitHub returns 0 results, Jira is unreachable, or a log file doesn't exist yet — never silently fails, never aborts.
 
 ---
 
-## 💡 Tips for Best Results
+## Tips for Better Reports
 
-### Log Frequently
+**Log often, not at the end of the quarter.**
+Five minutes after you ship something is the best time to log it. At report time, the details will have faded.
 
-Don't wait until end of quarter. Log achievements as they happen:
+**Be specific about impact.**
 
+| Instead of | Write |
+|-----------|-------|
+| `Fixed a bug` | `Fixed auth bug affecting 10K users, reduced support tickets by 60%` |
+| `Reviewed PRs` | `Reviewed 8 PRs for new feature, caught 2 breaking API changes before merge` |
+| `Attended meeting` | `Led architecture review for BFF layer, unblocked 3 downstream teams` |
+
+**Use the right category.** The auto-categorizer is good, but explicit categories make filtering cleaner:
 ```
-/log Shipped feature X with 40% performance improvement
-```
-
-### Be Specific with Impact
-
-❌ `Fixed bug`
-
-✅ `Fixed critical auth bug affecting 10K users, reducing support tickets by 60%`
-
-### Include Metrics
-
-- Percentage improvements
-- Time saved
-- Users affected
-- Cost reductions
-
-### Use Categories
-
-```
-/log [Challenge]: Debugged race condition in payment system
-/log [Collaboration]: Mentored 2 junior engineers on testing
-/log [Skill Development]: Completed AWS certification
-```
-
----
-
-## 📅 Recommended Workflow
-
-### Start of Quarter
-
-```
-/goals set          # Define what you want to accomplish
-```
-
-### Weekly (5 minutes)
-
-```
-/log <your wins>    # Capture achievements as they happen
-/status             # Quick check on entry count
-```
-
-### Mid-Quarter
-
-```
-/stats              # Check GitHub/Jira metrics
-/goals              # Review goal progress
-```
-
-### End of Quarter
-
-```
-/preview            # Review all data
-/report             # Generate full report
-/export             # Save as PDF
+/log [Skill Development]: Completed Golang fundamentals course
+/log [Recognition]: Team shoutout for leading production incident response
 ```
 
 ---
 
-## 🔌 MCP Tool Integration
+## Recommended Workflow
 
-This tool uses Cursor's MCP (Model Context Protocol) for data fetching:
+**Start of quarter (30 min)**
+```
+/goals set       ← What do you want to accomplish?
+```
 
-### GitHub
+**Weekly (5 min)**
+```
+/log <your wins this week>
+/status          ← See how many entries you have
+```
 
-- Searches merged PRs by author and date range
-- Filters by repository
+**Mid-quarter (15 min)**
+```
+/stats           ← Check GitHub/Jira numbers
+/goals           ← Review progress against goals
+```
 
-### Jira
-
-- Searches Epics, Stories, Tasks, Bugs
-- Filters by assignee and date range
-
-**Note:** MCP tools must be configured in Cursor for full functionality. Without them, you can still use local logging and manual report generation.
-
----
-
-## 🛠️ Customization
-
-### Adding Custom Commands
-
-Create a new file in `.cursor/commands/your-command.md` with instructions for the AI.
-
-### Modifying Report Template
-
-Edit `data/templates/quarterly-report-template.md` or `quarterly-report-template.html`.
-
-### Updating Company Context
-
-Run `/setup` again or edit `config/company-context.json` directly.
+**End of quarter (30 min)**
+```
+/preview         ← See all data before writing
+/report          ← Generate the full report
+/export          ← Save as PDF for your manager
+```
 
 ---
 
-## 🤝 Philosophy
+## Customization
 
-- **Consistency > Perfection** - Quick daily updates beat perfect weekly ones
-- **AI Augments, Not Replaces** - You describe, AI organizes
-- **Evidence-Based** - Every claim backed by data
-- **Private & Yours** - All data in local markdown files
+**Add a new command:** Create `.cursor/commands/your-command.md` with steps, error handling, and a STOP signal at the end. Add a row to the routing table in `.cursorrules`.
 
----
+**Change the report design:** Edit `data/templates/quarterly-report-template.html`. The CSS variables at the top control all colors and fonts.
 
-## 📜 License
+**Track multiple repos:** Update `config/company-context.json` → `github.repositories` with additional `{ "owner": "...", "repo": "..." }` entries.
 
-MIT - Use freely for personal career development.
+**Use with a different company:** Run `/setup` again — it overwrites the config and fetches new company values.
 
 ---
 
-_Built with ❤️ using Cursor AI + MCP Tools_
+## Philosophy
 
-_Inspired by [personal-planner](https://github.com/Gkrumbach07/personal-planner)_
+- **Evidence over assertion** — every claim in the report is backed by a PR, ticket, or log entry
+- **Consistent beats perfect** — a quick `/log` today is worth more than a thorough one next month
+- **Local and private** — all data lives in markdown files on your machine
+- **AI augments, you narrate** — the agent gathers and structures; you provide the reflection
+
+---
+
+*Built with Cursor AI + MCP Tools · MIT License*

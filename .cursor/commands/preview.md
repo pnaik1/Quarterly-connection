@@ -1,74 +1,79 @@
 # Preview Command
 
-Fetch and display all data that would go into a report, without generating the report.
+Fetch and display all raw data that would go into a report — without generating the report.
 
-## Instructions
+---
 
-When the user runs `/preview`:
+## Step 1 — Load Configuration
 
-### Step 1: Load Configuration
+Read `config/company-context.json` once.
 
-Read `config/company-context.json` for settings.
+**If config missing:** "Run `/setup` first." → **STOP.**
 
-### Step 2: Determine Current Quarter
+---
 
-Calculate quarter based on today's date.
+## Step 2 — Determine Quarter
 
-### Step 3: Fetch All Data (ONE PASS)
+Calculate from today's date (see quarter ranges in `.cursorrules`).
+If user specified (e.g., `/preview Q4 2025`), use that instead.
 
-Fetch GitHub PRs, Jira Epics, Jira Tickets, and Local Logs.
+---
 
-### Step 4: Display Detailed Preview
+## Step 3 — Fetch All Data (ONE PASS, all parallel)
+
+Fetch GitHub PRs, Jira Epics, Jira Tickets, and Local Logs using the same queries as the report command.
+
+See `.cursor/commands/report.md` Step 2 for exact query format.
+
+**Fallback for each source:** If empty or errored, show "None found" in that section — do not abort.
+
+---
+
+## Step 4 — Display Preview
 
 ```
-🔍 REPORT PREVIEW - Q{N} {YEAR}
+🔍 REPORT PREVIEW — {QUARTER} {YEAR}  ({MONTHS})
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📝 LOCAL LOGS ({count} entries)
+📝 LOCAL LOGS  ({N} entries)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-[2025-12-15] | Achievement | Entry 1...
-[2025-12-14] | Challenge | Entry 2...
-[2025-12-12] | Collaboration | Entry 3...
-{show all entries or first 10 with "...and X more"}
+[YYYY-MM-DD] | Category | Entry text
+...
+(show all entries, or first 10 with "…and {N} more" if >10)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💻 GITHUB PRS ({count} merged)
+💻 GITHUB PRS  ({N} merged)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-• #{number}: {title}
-• #{number}: {title}
-• #{number}: {title}
-{show all PRs}
+• #123: PR title here
+• #456: Another PR title
+(show all)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📋 JIRA EPICS ({count} found)
+📋 JIRA EPICS  ({N} found, {N} completed)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-• {KEY}-123: {Summary} [{Status}]
-• {KEY}-456: {Summary} [{Status}]
-{show all epics}
+• KEY-123: Epic summary  [In Progress]
+• KEY-456: Epic summary  [Done]
+(show all)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📋 JIRA TICKETS ({count} resolved)
+📋 JIRA TICKETS  ({N} resolved)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-• {KEY}-789: {Summary} [{Type}]
-• {KEY}-012: {Summary} [{Type}]
-{show first 15 with "...and X more" if needed}
+• KEY-789: Ticket summary  [Story]
+• KEY-012: Ticket summary  [Bug]
+(show first 15 with "…and {N} more" if >15)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ Ready to generate report. Say "/report" to continue.
+Ready to generate the full report? Say "/report" to continue.
 ```
+
+**→ STOP. Do not auto-generate the report.**
+
+---
 
 ## Behavior
 
-- Fetch all data ONCE
-- Display detailed preview
-- Do NOT automatically generate report
-- STOP and wait for user to say /report
-
-
-
-
+- Fetch all data sources once — no retries
+- Show raw data as-is — no narrative, no interpretation
+- "None found" for empty sources — never abort
+- Stop after displaying preview and wait for user
