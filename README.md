@@ -1,264 +1,172 @@
-# Quarterly Connection Strategist
+# Quarterly Connection
 
-An AI-powered quarterly review system that lives inside Cursor. Log your work naturally throughout the quarter, then generate polished, data-backed reports by pulling directly from GitHub and Jira.
+An AI-powered quarterly review tool. Log your work as you go, then generate a polished interactive report backed by real GitHub PRs, Jira tickets, and Slack contributions — including Red Hat competency alignment.
 
 ---
 
 ## Prerequisites
 
-Before using this repo, you need:
+1. **[Cursor](https://cursor.sh)**
+2. **GitHub MCP** — for fetching merged PRs
+3. **Atlassian MCP** — for fetching Jira tickets
+4. **Slack MCP** *(optional)* — for extracting Slack contributions into the report
 
-1. **[Cursor](https://cursor.sh)** — this is a Cursor-native project (not plain VS Code)
-2. **MCP: GitHub** — for fetching merged PRs ([setup guide](https://docs.cursor.com/context/model-context-protocol))
-3. **MCP: Atlassian** — for fetching Jira tickets ([setup guide](https://docs.cursor.com/context/model-context-protocol))
+> Any MCP that is unavailable is skipped gracefully — the report is still generated with whatever sources are available.
 
-> Without GitHub/Jira MCP tools, logging and manual reporting still work — you just won't get auto-fetched data.
+### Slack MCP setup
+
+The Slack integration uses [slack-mcp](https://github.com/redhat-community-ai-tools/slack-mcp). Run the one-time setup script:
+
+```bash
+python3 <(curl -fsSL https://raw.githubusercontent.com/redhat-community-ai-tools/slack-mcp/main/scripts/setup-slack-mcp.py)
+```
+
+Once connected, add the channels you want tracked to `config/company-context.json` under the `slack.channels` key (see [Slack channel config](#slack-channel-config) below). This is a one-time manual step — every person's relevant channels are different.
 
 ---
 
-## Quick Start
+## Quick start
 
-### Step 1 — Open in Cursor
-
-Clone or download this repo and open the folder in Cursor (File → Open Folder).
-
-### Step 2 — Configure
-
-In the Cursor chat panel, type:
-
-```
-/setup
+```bash
+git clone <this-repo>
+# Open in Cursor, then in the chat panel say:
+"set me up"
 ```
 
-The agent walks you through:
-- Company name (auto-fetches values from the web)
-- Your name, role, and team
-- GitHub username and repositories to track
-- Jira email and project keys
-
-All saved to `config/company-context.json`.
-
-### Step 3 — Set Goals
-
-```
-/goals set
-```
-
-Define what you want to accomplish this quarter. Stored alongside your config.
-
-### Step 4 — Log Throughout the Quarter
-
-Capture wins as they happen — don't wait until report time:
-
-```
-/log Shipped new API gateway, reducing response times by 45%
-/log [Challenge]: Debugged race condition in payment system affecting prod
-/log [Collaboration]: Mentored two engineers on testing patterns
-```
-
-The AI auto-categorizes entries and saves them to `data/achievements/{YEAR}/Q{N}_log.md`.
-
-### Step 5 — Generate Your Report
-
-At quarter end:
-
-```
-/report
-```
-
-The agent fetches your GitHub PRs and Jira tickets, combines them with your logs, asks three reflection questions, then writes a polished Markdown + HTML report.
+The setup skill walks you through 4 questions and creates your personal config.
 
 ---
 
-## All Commands
+## How to use it
 
-Commands work with or without the `/` prefix.
+Just talk to it naturally. Cursor matches your intent to the right skill.
 
-### Setup & Profile
-
-| Command | What it does |
+| You say | What happens |
 |---------|-------------|
-| `/setup` | Configure company, GitHub, Jira, and your profile |
-| `/profile` | Update your name, role, or team |
-| `/status` | Show current quarter dates and log entry counts |
-| `/goals` | View career goals for this quarter |
-| `/goals set` | Set new short-term and long-term goals |
-| `/help` | Show this command list inside the chat |
-
-### Logging
-
-| Command | What it does |
-|---------|-------------|
-| `/log <text>` | Add an achievement (auto-categorized) |
-| `/log [Category]: <text>` | Add with a specific category |
-| `/logs` | View this quarter's entries |
-| `/logs Q2 2025` | View a specific quarter's entries |
-| `/edit` | Edit or delete existing entries |
-
-**Log categories:** Achievement · Challenge · Skill Development · Collaboration · Project Update · Recognition
-
-### Reporting
-
-| Command | What it does |
-|---------|-------------|
-| `/preview` | Fetch all data and show it — without generating the report |
-| `/stats` | Quick metrics only (no narrative) |
-| `/report` | Full report for the current quarter |
-| `/report Q3 2025` | Full report for a specific quarter |
-| `/compare Q3 Q4` | Side-by-side metric comparison |
-| `/export` | Instructions for saving the HTML report as PDF |
+| "set me up" / "update my GitHub" | Setup skill — configure profile, GitHub, Jira |
+| "log that I shipped X" | Log skill — adds an entry to this quarter's log |
+| "show my logs" | Log skill — displays current quarter's entries |
+| "set my goals for Q2" | Goals skill — saves short-term, long-term, skills |
+| "generate my Q2 report" | Report skill — fetches all data sources, builds interactive canvas |
+| "preview my data" | Report skill — shows raw data without generating |
+| "quick stats" | Report skill — PR/Jira/Slack counts only |
+| "compare Q1 and Q2" | Report skill — side-by-side metrics |
+| "show my competency alignment" | Competencies skill — maps work to Red Hat framework |
 
 ---
 
-## Report Flow
+## Data sources
 
-```
-/report
-   │
-   ├─ Step 1: Load config (company, GitHub, Jira credentials)
-   │
-   ├─ Step 2: Fetch data in parallel
-   │           ├─ GitHub: merged PRs by author + date range
-   │           ├─ Jira: epics and resolved tickets
-   │           └─ Local: achievement log entries
-   │
-   ├─ Step 3: Show data summary ──► STOP, ask 3 reflection questions:
-   │           1. Which company values did you exemplify?
-   │           2. What was your biggest impact?
-   │           3. What skill do you want to develop next quarter?
-   │
-   ├─ Step 4: Generate Markdown report (after you answer)
-   │
-   └─ Step 5: Generate HTML report → {QUARTER}-{YEAR}-report.html
-```
+The report pulls from four sources in parallel, each fetched exactly once per generation:
 
-The HTML report is print-optimized. Open it in Chrome and use Cmd+P → Save as PDF.
+| Source | What it captures | Requires |
+|--------|-----------------|----------|
+| **GitHub** | Merged PRs across tracked repos | GitHub MCP or `gh` CLI |
+| **Jira** | Closed epics, resolved stories, tasks, bugs | Atlassian MCP |
+| **Slack** | Architecture proposals, cross-team coordination, documentation, knowledge-sharing from tracked channels | Slack MCP + channel config |
+| **Local log** | Manually logged achievements | Nothing — always available |
+
+### How Slack extraction works
+
+1. The report skill reads `slack.channels` from your config to know which channels to pull.
+2. For each channel, it calls `get_channel_history` filtered to the quarter date window.
+3. It keeps only messages authored by you, discarding other people's messages.
+4. The AI synthesizes raw messages into structured highlights — filtering out casual chat, grouping related messages in a thread, and classifying each contribution: **Architecture**, **Coordination**, **Documentation**, **Knowledge-sharing**, or **Cross-team**.
+5. Highlights are embedded into the canvas and woven throughout **Achievements**, **Values**, **Goals**, and **Competencies** — not just a dedicated Slack tab.
 
 ---
 
-## Project Structure
+## Workflow
+
+**Start of quarter (10 min)**
+1. Open Cursor in this folder
+2. "Set my goals for Q{N}"
+3. Add any new relevant Slack channels to the `slack.channels` config
+
+**Weekly (2 min)**
+- "Log that I..." — capture wins while they're fresh
+
+**End of quarter (15 min)**
+1. "Preview my data for Q{N}" — see what all sources have
+2. "Generate my Q{N} report" — builds an interactive canvas with all your data
+3. Click the canvas link to open it beside the chat
+
+---
+
+## Project structure
 
 ```
 Quarterly-connection/
-├── .cursorrules                      # Agent persona + command routing (95 lines)
+├── CONSTITUTION.md                   # data model, queries, report structure
+├── CLAUDE.md                         # Claude Code bridge (for non-Cursor users)
 ├── .cursor/
-│   └── commands/                     # One file per command — single source of truth
-│       ├── report.md
-│       ├── log.md
-│       ├── setup.md
-│       ├── stats.md
-│       ├── preview.md
-│       └── ... (13 commands total)
+│   ├── rules/
+│   │   └── quarterly-connection.mdc  # always-on session rules
+│   └── skills/
+│       ├── setup/SKILL.md            # profile + config
+│       ├── log/SKILL.md              # logging, viewing, editing
+│       ├── report/SKILL.md           # preview, stats, report, compare, export
+│       ├── goals/SKILL.md            # view and set goals
+│       └── competencies/SKILL.md     # Red Hat competency alignment
 ├── config/
-│   └── company-context.json          # Your profile, company values, GitHub/Jira creds
+│   ├── company-context.json          ← gitignored (your credentials + goals)
+│   ├── company-context.template.json ← blank starting point
+│   └── competencies.json             ← Red Hat framework (shared)
 ├── data/
-│   ├── achievements/
-│   │   ├── 2025/                     # Q4_log.md etc.
-│   │   └── 2026/                     # Q1_log.md etc.
-│   └── templates/
-│       ├── quarterly-report-template.md
-│       └── quarterly-report-template.html
-├── Q1-2026-report.html               # Generated — open in browser
+│   └── achievements/2026/            ← your log files (gitignored)
 └── .gitignore
 ```
 
 ---
 
-## How the Agent Works
+## Slack channel config
 
-This project is structured as a **3-layer Cursor agent**:
+In `config/company-context.json`, add a `slack` block listing the channels you want the report to pull from. These should be team channels, working groups, and project forums — not DMs.
 
-```
-.cursorrules  (95 lines)
-   Persona, rules, and a routing table.
-   No command logic lives here.
-      │
-      ▼
-.cursor/commands/*.md
-   One file per command. Each file owns its full behavior:
-   steps, error handling, and an explicit STOP signal.
-      │
-      ▼
-MCP Tools (GitHub + Jira)
-   Called once per session when a command requires it.
-   Results are never re-fetched to "verify."
+```json
+"slack": {
+  "channels": [
+    { "id": "C09S4J8TV5Y", "name": "team-dashboard-crimson",       "purpose": "team standup and weekly work updates" },
+    { "id": "C099MEPGF43", "name": "wg-dashboard-crimson",          "purpose": "dashboard working group technical discussions" },
+    { "id": "C07CQ4R4HMY", "name": "forum-openshift-ai-dashboard",  "purpose": "public dashboard forum and announcements" }
+  ]
+}
 ```
 
-### Why this structure
+To find a channel ID: right-click the channel name in Slack → **Copy link** — the ID is the last segment (starts with `C`).
 
-- **`.cursorrules` is short on purpose.** The longer the system prompt, the less reliably the AI follows instructions at the end. At 95 lines it stays fully in context.
-- **Commands are self-contained.** Updating `/report` means editing one file, not hunting through a 700-line rules file.
-- **Error handling is explicit.** Every command specifies what to do when GitHub returns 0 results, Jira is unreachable, or a log file doesn't exist yet — never silently fails, never aborts.
+To add a channel mid-quarter: edit the config and re-run the report — previous quarters aren't affected.
 
 ---
 
-## Tips for Better Reports
+## For teams
 
-**Log often, not at the end of the quarter.**
-Five minutes after you ship something is the best time to log it. At report time, the details will have faded.
+**What's shared (committed):** All skills, templates, `competencies.json`, `company-context.template.json`
 
-**Be specific about impact.**
+**What's personal (gitignored):** `config/company-context.json`, `data/achievements/`
+
+New teammate onboarding:
+```bash
+git clone <this-repo>
+# Open in Cursor → "set me up"
+# Then add your Slack channels to config/company-context.json
+```
+
+**Using Claude Code instead of Cursor?** See `CLAUDE.md`.
+
+---
+
+## Tips for better reports
+
+Log often — five minutes after you ship something is the best time.
 
 | Instead of | Write |
 |-----------|-------|
-| `Fixed a bug` | `Fixed auth bug affecting 10K users, reduced support tickets by 60%` |
-| `Reviewed PRs` | `Reviewed 8 PRs for new feature, caught 2 breaking API changes before merge` |
-| `Attended meeting` | `Led architecture review for BFF layer, unblocked 3 downstream teams` |
+| "Fixed a bug" | "Fixed auth bug affecting 10K users, reduced support tickets by 60%" |
+| "Reviewed PRs" | "Reviewed 8 PRs for new feature, caught 2 breaking API changes before merge" |
+| "Attended meeting" | "Led architecture review for BFF layer, unblocked 3 downstream teams" |
 
-**Use the right category.** The auto-categorizer is good, but explicit categories make filtering cleaner:
-```
-/log [Skill Development]: Completed Golang fundamentals course
-/log [Recognition]: Team shoutout for leading production incident response
-```
-
----
-
-## Recommended Workflow
-
-**Start of quarter (30 min)**
-```
-/goals set       ← What do you want to accomplish?
-```
-
-**Weekly (5 min)**
-```
-/log <your wins this week>
-/status          ← See how many entries you have
-```
-
-**Mid-quarter (15 min)**
-```
-/stats           ← Check GitHub/Jira numbers
-/goals           ← Review progress against goals
-```
-
-**End of quarter (30 min)**
-```
-/preview         ← See all data before writing
-/report          ← Generate the full report
-/export          ← Save as PDF for your manager
-```
-
----
-
-## Customization
-
-**Add a new command:** Create `.cursor/commands/your-command.md` with steps, error handling, and a STOP signal at the end. Add a row to the routing table in `.cursorrules`.
-
-**Change the report design:** Edit `data/templates/quarterly-report-template.html`. The CSS variables at the top control all colors and fonts.
-
-**Track multiple repos:** Update `config/company-context.json` → `github.repositories` with additional `{ "owner": "...", "repo": "..." }` entries.
-
-**Use with a different company:** Run `/setup` again — it overwrites the config and fetches new company values.
-
----
-
-## Philosophy
-
-- **Evidence over assertion** — every claim in the report is backed by a PR, ticket, or log entry
-- **Consistent beats perfect** — a quick `/log` today is worth more than a thorough one next month
-- **Local and private** — all data lives in markdown files on your machine
-- **AI augments, you narrate** — the agent gathers and structures; you provide the reflection
+For Slack: the report picks up substantive messages automatically, but the best channels to track are ones where you share technical updates, ask architectural questions, or coordinate cross-team work. Pure social channels don't add value.
 
 ---
 

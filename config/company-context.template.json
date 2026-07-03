@@ -1,0 +1,39 @@
+{
+  "_instructions": "Copy this file to company-context.json (gitignored), then say 'set me up' in Cursor.",
+  "company": {
+    "name": "Red Hat",
+    "initialized": false,
+    "last_updated": ""
+  },
+  "core_values": [
+    { "name": "Freedom", "description": "Fostering independent thinking and innovation" },
+    { "name": "Courage", "description": "Speaking up, taking risks, and challenging the status quo" },
+    { "name": "Commitment", "description": "Delivering on promises to customers, partners, and each other" },
+    { "name": "Accountability", "description": "Owning outcomes, not just activities" }
+  ],
+  "strategic_priorities": {
+    "year": 2026,
+    "priorities": [
+      "Hybrid Cloud Platforms Acceleration",
+      "Enabling Customer AI Innovation",
+      "Operational Excellence"
+    ]
+  },
+  "user_profile": {
+    "name": "",
+    "role": "",
+    "job_level": null,
+    "team": "",
+    "jira_email": ""
+  },
+  "github": {
+    "author": "",
+    "repositories": []
+  },
+  "career_goals": {
+    "short_term": [],
+    "long_term": [],
+    "skills_to_develop": [],
+    "quarter": ""
+  }
+}

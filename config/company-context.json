@@ -1,0 +1,64 @@
+{
+  "company": {
+    "name": "Red Hat",
+    "initialized": true,
+    "last_updated": "2026-06-26"
+  },
+  "core_values": [
+    {
+      "name": "Freedom",
+      "description": "Fostering independent thinking and innovation"
+    },
+    {
+      "name": "Courage",
+      "description": "Speaking up, taking risks, and challenging the status quo"
+    },
+    {
+      "name": "Commitment",
+      "description": "Delivering on promises to customers, partners, and each other"
+    },
+    {
+      "name": "Accountability",
+      "description": "Owning outcomes, not just activities"
+    }
+  ],
+  "strategic_priorities": {
+    "year": 2026,
+    "priorities": [
+      "Hybrid Cloud Platforms Acceleration",
+      "Enabling Customer AI Innovation",
+      "Operational Excellence"
+    ]
+  },
+  "user_profile": {
+    "name": "Purva Naik",
+    "role": "Software Engineer",
+    "job_level": null,
+    "team": "Dashboard",
+    "jira_email": "pnaik@redhat.com"
+  },
+  "github": {
+    "author": "pnaik1",
+    "repositories": [
+      { "owner": "opendatahub-io", "repo": "odh-dashboard" },
+      { "owner": "kubeflow", "repo": "pipelines" },
+      { "owner": "opendatahub-io", "repo": "mlflow" }
+    ]
+  },
+  "career_goals": {
+    "short_term": [],
+    "long_term": [],
+    "skills_to_develop": [],
+    "quarter": ""
+  },
+  "slack": {
+    "channels": [
+      { "id": "C09S4J8TV5Y", "name": "team-dashboard-crimson",          "purpose": "team standup and weekly work updates" },
+      { "id": "C0AAJECFW4A", "name": "rhoai-dashboard-india",            "purpose": "India team weekly updates" },
+      { "id": "C099MEPGF43", "name": "wg-dashboard-crimson",             "purpose": "dashboard working group technical discussions" },
+      { "id": "C07CQ4R4HMY", "name": "forum-openshift-ai-dashboard",     "purpose": "public dashboard forum and announcements" },
+      { "id": "C09P3G66RGQ", "name": "forum-rhai-evals",                 "purpose": "evals cross-team technical forum" },
+      { "id": "C0B0GRSD7B6", "name": "wg-mv-x-evalhub-x-catalog-ui",    "purpose": "EvalHub x Model Catalog cross-team working group" }
+    ]
+  }
+}
