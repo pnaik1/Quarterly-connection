@@ -5,6 +5,9 @@ config/company-context.json
 *-report.html
 data/achievements/**/*_report.md
 
+# Personal config — each user has their own (copy company-context.template.json to get started)
+config/company-context.json
+
 # OS files
 .DS_Store
 Thumbs.db

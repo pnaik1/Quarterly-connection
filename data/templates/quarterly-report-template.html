@@ -465,6 +465,83 @@
       }
 
       /* ==========================================
+         COMPETENCY ALIGNMENT SECTION
+         - Purple left-border cards in a responsive grid
+         - Category label + sub-competency name + evidence text
+         - Indicator pills for matched behavioral indicators
+         ========================================== */
+      .competency-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1rem;
+      }
+
+      .competency-card {
+        background: #fff;
+        border: 1px solid var(--rh-gray-light);
+        border-left: 4px solid var(--rh-purple);
+        border-radius: 8px;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .competency-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(94, 64, 190, 0.12);
+      }
+
+      .competency-category {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--rh-purple);
+      }
+
+      .competency-name {
+        font-family: "Red Hat Display", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--rh-black);
+      }
+
+      .competency-definition {
+        font-size: 0.8rem;
+        color: var(--rh-gray-medium);
+        font-style: italic;
+        line-height: 1.4;
+      }
+
+      .competency-evidence {
+        font-size: 0.875rem;
+        color: var(--rh-gray-dark);
+        line-height: 1.5;
+        border-top: 1px solid var(--rh-gray-light);
+        padding-top: 0.5rem;
+        margin-top: 0.25rem;
+      }
+
+      .competency-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        margin-top: 0.25rem;
+      }
+
+      .competency-indicator-pill {
+        display: inline-block;
+        background: #f0ebff;
+        color: var(--rh-purple);
+        border-radius: 99px;
+        font-size: 0.68rem;
+        font-weight: 600;
+        padding: 0.15rem 0.55rem;
+      }
+
+      /* ==========================================
          FOOTER
          - Centered text
          - Red Hat logo styling
@@ -498,6 +575,7 @@
         .section,
         .value-card,
         .jira-card,
+        .competency-card,
         .growth-card {
           break-inside: avoid;
         }
@@ -511,7 +589,8 @@
           grid-template-columns: repeat(2, 1fr);
         }
         .values-grid,
-        .jira-grid {
+        .jira-grid,
+        .competency-grid {
           grid-template-columns: 1fr;
         }
         .header h1 {
@@ -528,7 +607,7 @@
     <header class="header">
       <div class="container header-content">
         <h1>Quarterly Connection Summary</h1>
-        <p class="subtitle">{{USER_NAME}} • {{USER_TITLE}}</p>
+        <p class="subtitle">{{USER_NAME}} • {{USER_TITLE}}<!-- {{#if JOB_LEVEL}} • {{JOB_LEVEL}}{{/if}} --></p>
         <span class="period">{{QUARTER}} {{YEAR}} • {{QUARTER_MONTHS}}</span>
       </div>
     </header>
@@ -594,6 +673,38 @@
           <div class="value-card">
             <h4>{{VALUE_NAME}}</h4>
             <p>{{VALUE_EXAMPLE}}</p>
+          </div>
+          <!-- {{/each}} -->
+        </div>
+      </section>
+
+      <!-- ==========================================
+           RED HAT COMPETENCY ALIGNMENT SECTION
+           Placeholders per card:
+             {{COMPETENCY_CATEGORY}}   - parent category (e.g., "Execution")
+             {{COMPETENCY_NAME}}       - sub-competency (e.g., "Take Initiative")
+             {{COMPETENCY_DEFINITION}} - one-line definition from the framework
+             {{COMPETENCY_EVIDENCE}}   - 1–2 sentences of specific evidence from this quarter
+             {{COMPETENCY_PILL_*}}     - matched behavioral indicator labels
+           Repeat .competency-card for each demonstrated competency (4–6 total)
+           ========================================== -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-icon">🧭</div>
+          <h2 class="section-title">Red Hat Competency Alignment</h2>
+        </div>
+        <div class="competency-grid">
+          <!-- {{#each COMPETENCIES}} -->
+          <div class="competency-card">
+            <div class="competency-category">{{COMPETENCY_CATEGORY}}</div>
+            <div class="competency-name">{{COMPETENCY_NAME}}</div>
+            <div class="competency-definition">{{COMPETENCY_DEFINITION}}</div>
+            <div class="competency-evidence">{{COMPETENCY_EVIDENCE}}</div>
+            <div class="competency-pills">
+              <!-- {{#each COMPETENCY_INDICATORS}} -->
+              <span class="competency-indicator-pill">{{INDICATOR_LABEL}}</span>
+              <!-- {{/each}} -->
+            </div>
           </div>
           <!-- {{/each}} -->
         </div>
