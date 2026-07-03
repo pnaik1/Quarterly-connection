@@ -1,0 +1,503 @@
+{
+  "source": "Red Hat Competency Framework",
+  "source_url": "https://source.redhat.com/career/competencies/competencies_wiki",
+  "last_updated": "2026-04-17",
+  "competencies": [
+    {
+      "name": "Red Hat Multiplier",
+      "sub_competencies": [
+        {
+          "name": "Connect",
+          "definition": "Contribute and connect others to Red Hat's communities and shared purpose.",
+          "description": "Building and nurturing connections within and beyond Red Hat, linking people to communities, resources, and shared purpose to strengthen the collective impact of the organization.",
+          "indicators": [
+            "Connect others to Red Hat communities and resources",
+            "Participate actively in communities of practice",
+            "Help new associates build their network",
+            "Link people with shared interests or complementary skills",
+            "Foster a sense of belonging and shared purpose"
+          ]
+        },
+        {
+          "name": "Extend Trust",
+          "definition": "Show confidence in the ability of others to contribute.",
+          "description": "Demonstrating belief in colleagues' capabilities by delegating meaningful work, sharing information openly, and giving others the autonomy to make decisions and contribute in their own way.",
+          "indicators": [
+            "Delegate tasks with confidence in others' abilities",
+            "Give others autonomy to make decisions",
+            "Assume positive intent in interactions",
+            "Share information and context freely",
+            "Empower others to take ownership of their work"
+          ]
+        },
+        {
+          "name": "Be Transparent",
+          "definition": "Openly share information and intentions.",
+          "description": "Sharing information, decisions, and rationale openly to foster trust and enable informed participation. Transparency builds credibility and creates an environment where associates feel informed and empowered.",
+          "indicators": [
+            "Share information proactively and openly",
+            "Communicate reasoning behind decisions",
+            "Make processes and criteria visible to others",
+            "Acknowledge mistakes and uncertainties",
+            "Provide context so others can contribute effectively"
+          ]
+        },
+        {
+          "name": "Collaborate",
+          "definition": "Invite cooperation and productive dialogue to create better solutions.",
+          "description": "Actively seeking input from diverse perspectives, fostering productive dialogue, and working together across teams and functions to produce better outcomes than any individual could achieve alone.",
+          "indicators": [
+            "Seek diverse perspectives when solving problems",
+            "Create opportunities for cross-functional teamwork",
+            "Build on others' ideas constructively",
+            "Facilitate productive group discussions",
+            "Share credit and recognize collective contributions"
+          ]
+        },
+        {
+          "name": "Promote Inclusive Meritocracy",
+          "definition": "Empower others to contribute ideas and value solutions based on their merit.",
+          "description": "Creating an environment where the best ideas win regardless of their source, ensuring all voices are heard, and valuing contributions based on quality and impact rather than hierarchy or tenure.",
+          "indicators": [
+            "Evaluate ideas on merit rather than source",
+            "Actively solicit input from underrepresented voices",
+            "Create safe spaces for diverse perspectives",
+            "Challenge decisions that exclude valid contributions",
+            "Recognize and amplify ideas from all levels"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Strategic",
+      "sub_competencies": [
+        {
+          "name": "Practice Strategic Agility",
+          "definition": "Create and continuously refine plans that capitalize on emerging business opportunities.",
+          "description": "Developing flexible strategies that adapt to changing conditions, anticipating market shifts, and adjusting plans to seize emerging opportunities while maintaining alignment with long-term goals.",
+          "indicators": [
+            "Adapt plans based on new information or market changes",
+            "Identify emerging opportunities and threats",
+            "Balance short-term execution with long-term vision",
+            "Develop contingency plans for multiple scenarios",
+            "Continuously reassess and refine strategic direction"
+          ]
+        },
+        {
+          "name": "Apply Business Perspective",
+          "definition": "Shape decisions using an understanding of Red Hat and our current business environment.",
+          "description": "Incorporating knowledge of Red Hat's business model, competitive landscape, and market dynamics into day-to-day decisions to ensure alignment with organizational goals and customer needs.",
+          "indicators": [
+            "Consider business impact when making decisions",
+            "Stay informed about industry trends and competition",
+            "Align team goals with organizational strategy",
+            "Evaluate trade-offs using business context",
+            "Connect technical decisions to business outcomes"
+          ]
+        },
+        {
+          "name": "Generate a Vision",
+          "definition": "Explore and share inspiring possibilities.",
+          "description": "Looking beyond current constraints to envision future possibilities, articulating a compelling direction that motivates others, and creating alignment around a shared aspiration for what could be achieved.",
+          "indicators": [
+            "Articulate a compelling future direction",
+            "Inspire others with possibilities beyond the status quo",
+            "Think beyond immediate constraints",
+            "Connect daily work to a larger purpose",
+            "Help others see how their contributions matter"
+          ]
+        },
+        {
+          "name": "Navigate Complex Connections",
+          "definition": "Build awareness of the interrelated role of processes, departments, and individuals.",
+          "description": "Understanding how different parts of the organization interconnect and influence each other, identifying dependencies and relationships, and leveraging this awareness to improve coordination and outcomes.",
+          "indicators": [
+            "Understand cross-functional dependencies",
+            "Identify how changes in one area affect others",
+            "Build relationships across organizational boundaries",
+            "Facilitate coordination between interdependent teams",
+            "Map stakeholders and their interests"
+          ]
+        },
+        {
+          "name": "Create Context",
+          "definition": "Share information and ideas that align people to a common vision.",
+          "description": "Providing the background, rationale, and framing that help others understand the 'why' behind decisions and directions, enabling alignment and informed action across the organization.",
+          "indicators": [
+            "Provide background and rationale for decisions",
+            "Frame information to help others understand priorities",
+            "Connect individual work to broader organizational goals",
+            "Ensure consistent messaging across teams",
+            "Help others understand how their work fits in"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Influence",
+      "sub_competencies": [
+        {
+          "name": "Listen",
+          "definition": "Work to understand the meaning and motivation of what others are communicating.",
+          "description": "Going beyond hearing words to truly understanding the intent, concerns, and motivations behind what others communicate, using active listening techniques to build understanding and trust.",
+          "indicators": [
+            "Practice active listening with full attention",
+            "Ask clarifying questions to deepen understanding",
+            "Paraphrase to confirm understanding",
+            "Pick up on non-verbal cues and emotions",
+            "Listen to understand rather than to respond"
+          ]
+        },
+        {
+          "name": "Build Relationships",
+          "definition": "Establish trustworthy connections that lead to expanded reach.",
+          "description": "Proactively developing and maintaining authentic professional relationships that create mutual value, expand networks, and enable collaboration across organizational boundaries.",
+          "indicators": [
+            "Develop genuine professional connections",
+            "Maintain and nurture existing relationships",
+            "Build trust through consistent follow-through",
+            "Expand network across functions and levels",
+            "Create mutually beneficial partnerships"
+          ]
+        },
+        {
+          "name": "Commit to Common Goals",
+          "definition": "Identify and stay focused on common goals.",
+          "description": "Finding shared objectives that unite diverse stakeholders, maintaining focus on collective outcomes, and balancing individual priorities with team and organizational goals.",
+          "indicators": [
+            "Identify shared objectives across teams",
+            "Align personal goals with team priorities",
+            "Support decisions that serve the greater good",
+            "Stay focused on collective outcomes",
+            "Help resolve conflicts by refocusing on shared goals"
+          ]
+        },
+        {
+          "name": "Engage in Dialogue",
+          "definition": "Objectively add productive ideas to the conversation.",
+          "description": "Contributing constructive, well-reasoned ideas to discussions while remaining open to different perspectives, fostering productive debate, and moving conversations toward actionable outcomes.",
+          "indicators": [
+            "Contribute constructive ideas to discussions",
+            "Present viewpoints with supporting reasoning",
+            "Remain open to opposing perspectives",
+            "Move conversations toward actionable outcomes",
+            "Challenge ideas respectfully and constructively"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Execution",
+      "sub_competencies": [
+        {
+          "name": "Take Initiative",
+          "definition": "Act on opportunities to add value.",
+          "description": "Proactively identifying opportunities to contribute, stepping up to fill gaps, and taking action without waiting for direction when you see a way to create value for the team or organization.",
+          "indicators": [
+            "Identify and act on opportunities proactively",
+            "Volunteer for challenging assignments",
+            "Step up to fill gaps without being asked",
+            "Propose solutions rather than just identifying problems",
+            "Go beyond assigned responsibilities when appropriate"
+          ]
+        },
+        {
+          "name": "Prioritize",
+          "definition": "Concentrate on the most important tasks first.",
+          "description": "Effectively evaluating competing demands, focusing energy on highest-impact activities, and making deliberate choices about what to do and what to defer or decline.",
+          "indicators": [
+            "Focus on highest-impact tasks first",
+            "Make deliberate trade-off decisions",
+            "Manage time and resources effectively",
+            "Communicate priorities clearly to others",
+            "Say no to lower-priority requests when appropriate"
+          ]
+        },
+        {
+          "name": "Focus on Results",
+          "definition": "Continuously progress towards desired outcomes.",
+          "description": "Maintaining consistent forward momentum toward goals, tracking progress, removing obstacles, and adjusting approaches as needed to deliver meaningful outcomes.",
+          "indicators": [
+            "Set clear, measurable goals",
+            "Track progress and adjust course as needed",
+            "Remove obstacles to achieving outcomes",
+            "Maintain momentum despite setbacks",
+            "Deliver on commitments consistently"
+          ]
+        },
+        {
+          "name": "Embrace Change",
+          "definition": "Expect change and adapt to remain agile.",
+          "description": "Approaching change with a positive and flexible mindset, helping others navigate transitions, and treating evolving circumstances as opportunities for improvement rather than disruptions.",
+          "indicators": [
+            "Adapt quickly to changing circumstances",
+            "Maintain effectiveness during transitions",
+            "Help others navigate change positively",
+            "See change as an opportunity for improvement",
+            "Remain flexible in approach and methods"
+          ]
+        },
+        {
+          "name": "Persevere",
+          "definition": "Pursue goals even in the face of obstacles.",
+          "description": "Demonstrating resilience and determination in the face of challenges, setbacks, and adversity, maintaining focus on goals and finding alternative paths when initial approaches are blocked.",
+          "indicators": [
+            "Maintain focus despite obstacles and setbacks",
+            "Find alternative approaches when blocked",
+            "Demonstrate resilience under pressure",
+            "Stay motivated through difficult periods",
+            "Learn from failures and keep moving forward"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Team Advocate",
+      "sub_competencies": [
+        {
+          "name": "Focus on Team",
+          "definition": "Place the success of the team ahead of your own.",
+          "description": "Prioritizing team outcomes over individual recognition, supporting teammates, sharing knowledge and resources, and contributing to a collaborative team culture where collective success is valued.",
+          "indicators": [
+            "Put team success above personal recognition",
+            "Support teammates in achieving their goals",
+            "Share knowledge and resources freely",
+            "Contribute to positive team culture",
+            "Step in to help when teammates need support"
+          ]
+        },
+        {
+          "name": "Encourage Others",
+          "definition": "Support and energize others to do their best.",
+          "description": "Showing appreciation, providing praise, expressing confidence in others' abilities, and celebrating accomplishments to sustain motivation, engagement, and enthusiasm across the team.",
+          "indicators": [
+            "Provide genuine praise and recognition",
+            "Express confidence in others' abilities",
+            "Celebrate team and individual accomplishments",
+            "Motivate others during challenging times",
+            "Create a culture of appreciation and recognition"
+          ]
+        },
+        {
+          "name": "Amplify Strengths",
+          "definition": "Help others recognize and use their strengths.",
+          "description": "Identifying and highlighting the unique strengths of team members, creating opportunities for people to leverage what they do best, and fostering a culture that values strengths-based development.",
+          "indicators": [
+            "Identify and articulate others' strengths",
+            "Create opportunities for people to use their strengths",
+            "Encourage strengths-based development conversations",
+            "Delegate work to align with team members' strengths",
+            "Model self-awareness by sharing your own strengths"
+          ]
+        },
+        {
+          "name": "Share Feedback",
+          "definition": "Provide information to others about their behavior, skill, and impact.",
+          "description": "Offering timely, specific, and constructive feedback to help others grow, sharing both positive reinforcement and developmental observations in a way that builds trust and supports improvement.",
+          "indicators": [
+            "Provide timely, specific feedback",
+            "Balance positive and constructive feedback",
+            "Share feedback with respect and good intent",
+            "Use concrete examples when giving feedback",
+            "Create regular opportunities for feedback exchange"
+          ]
+        },
+        {
+          "name": "Receive Feedback",
+          "definition": "Consider and evaluate feedback from others to improve contribution.",
+          "description": "Actively seeking feedback, listening without defensiveness, thoughtfully evaluating input, and demonstrating growth by incorporating feedback into behavior and work practices.",
+          "indicators": [
+            "Proactively ask for feedback from others",
+            "Listen to feedback without defensiveness",
+            "Incorporate feedback into behavior and work",
+            "Follow up to show how feedback was applied",
+            "Use frameworks like Stop-Start-Continue to invite input"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Problem Solving",
+      "sub_competencies": [
+        {
+          "name": "Troubleshoot",
+          "definition": "Probe to identify the root cause of the problem.",
+          "description": "Using a methodical, systematic approach to isolate and identify the true source of problems, ensuring the right problem is identified before investing time and energy in developing solutions.",
+          "indicators": [
+            "Ask probing questions to understand the problem",
+            "Use systematic methods to isolate root causes",
+            "Document issues thoroughly for follow-up",
+            "Distinguish symptoms from underlying causes",
+            "Conduct audits to proactively identify potential problems"
+          ]
+        },
+        {
+          "name": "Think Critically",
+          "definition": "Objectively analyze information from multiple perspectives.",
+          "description": "Navigating disparate and sometimes conflicting information, synthesizing complex ideas from multiple viewpoints, and presenting a clear, cohesive picture to drive common understanding and better decisions.",
+          "indicators": [
+            "Analyze information from multiple perspectives",
+            "Synthesize complex, sometimes conflicting data",
+            "Create common fact bases for shared understanding",
+            "Evaluate options with pros and cons",
+            "Lead brainstorming and problem-solving discussions"
+          ]
+        },
+        {
+          "name": "Apply Data",
+          "definition": "Use data to inform solutions.",
+          "description": "Understanding what data is needed, extracting and managing it effectively, and assessing information to inform and direct potential solutions with context and clarity.",
+          "indicators": [
+            "Identify relevant data sources for decision-making",
+            "Analyze data to identify patterns and insights",
+            "Use data to support or challenge assumptions",
+            "Present data-driven recommendations clearly",
+            "Balance data analysis with timely action"
+          ]
+        },
+        {
+          "name": "Take Appropriate Risk",
+          "definition": "Weigh risk against the benefit to support decisions.",
+          "description": "Making timely, fact-based decisions using relevant data and personal judgment, recognizing when situations need additional input versus immediate action, and balancing agility with consideration for potential risks.",
+          "indicators": [
+            "Conduct risk-benefit analyses for important decisions",
+            "Identify potential risks proactively",
+            "Make timely decisions with appropriate due diligence",
+            "Discuss risks and benefits before taking action",
+            "Learn from post-mortem discussions to improve future decisions"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Customer Focus",
+      "sub_competencies": [
+        {
+          "name": "Adopt Customer Perspective",
+          "definition": "Take the perspective of the customer by fully understanding their business.",
+          "description": "Understanding your customers' situation, needs, and priorities by listening, asking questions, and thinking from their point of view rather than starting from your own perspective.",
+          "indicators": [
+            "Understand who your customers are and what they value",
+            "Ask questions to build understanding of customer needs",
+            "Research customer industries and business contexts",
+            "Think from the customer perspective when designing solutions",
+            "Represent the voice of the customer in decisions"
+          ]
+        },
+        {
+          "name": "Anticipate Needs",
+          "definition": "Apply knowledge and insight to foresee business needs.",
+          "description": "Proactively engaging with customers to understand evolving needs, using active listening and critical thinking to identify unexpressed requirements, and preparing for future challenges before they arise.",
+          "indicators": [
+            "Engage regularly with customers to understand evolving needs",
+            "Identify unexpressed needs through active listening",
+            "Stay informed about industry trends affecting customers",
+            "Develop proactive solutions before problems arise",
+            "Build long-term strategies based on anticipated needs"
+          ]
+        },
+        {
+          "name": "Go Above and Beyond",
+          "definition": "Create experiences and outcomes that exceed customer expectations.",
+          "description": "Seeking to do more than the minimum by recommending improvements, developing resources, and creating experiences that deliver exceptional value and delight customers beyond their expectations.",
+          "indicators": [
+            "Exceed expectations in customer interactions",
+            "Recommend improvements to products and processes",
+            "Develop resources that enhance customer experience",
+            "Address gaps in team ability to serve customers",
+            "Foster a culture of passionate customer service"
+          ]
+        },
+        {
+          "name": "Respect Relationships",
+          "definition": "Consider the customer relationship as an important outcome.",
+          "description": "Building and maintaining trustworthy partnerships with customers, consistently delivering value, and treating the relationship itself as a key outcome alongside project deliverables.",
+          "indicators": [
+            "Build and maintain trusting customer partnerships",
+            "Follow through on commitments consistently",
+            "Communicate early and often with customers",
+            "Value long-term relationships over short-term gains",
+            "Act as a trusted adviser to customers"
+          ]
+        },
+        {
+          "name": "Resolve Issues",
+          "definition": "Take responsibility for thoroughly resolving customer issues.",
+          "description": "Taking ownership of customer problems, resolving them thoroughly rather than superficially, and thinking holistically about how to prevent issues from recurring in the future.",
+          "indicators": [
+            "Take ownership of customer issues end-to-end",
+            "Listen actively to understand customer complaints",
+            "Identify root causes rather than applying surface fixes",
+            "Proactively audit processes to prevent future issues",
+            "Collaborate with teammates to resolve complex problems"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Continuous Learning",
+      "sub_competencies": [
+        {
+          "name": "Recognize Learning Opportunities",
+          "definition": "Explore various approaches to learning in your current role.",
+          "description": "Identifying learning potential in everyday experiences -- special assignments, new connections, volunteering, and cross-functional interactions -- rather than waiting for formal training opportunities.",
+          "indicators": [
+            "Find learning opportunities in everyday work",
+            "Seek stretch assignments and new challenges",
+            "Build cross-functional connections for broader learning",
+            "Track and reflect on daily learning experiences",
+            "Ask for developmental opportunities proactively"
+          ]
+        },
+        {
+          "name": "Practice",
+          "definition": "Use knowledge across various situations to develop a skill.",
+          "description": "Deliberately practicing new skills and behaviors with a growth mindset, seeking feedback, and persevering through difficulty to build proficiency and career mobility.",
+          "indicators": [
+            "Deliberately practice new skills in safe environments",
+            "Challenge past habits to try new approaches",
+            "Seek feedback on practice efforts",
+            "Demonstrate grit by persisting through difficulty",
+            "Apply learning from one context to new situations"
+          ]
+        },
+        {
+          "name": "Experiment",
+          "definition": "Explore through trial and error.",
+          "description": "Learning from firsthand experience by trying new approaches, taking calculated risks, running quick inexpensive experiments, and treating failures as valuable learning data rather than setbacks.",
+          "indicators": [
+            "Try new approaches rather than defaulting to familiar methods",
+            "Run quick, low-cost experiments to test ideas",
+            "Learn from mistakes rather than avoiding similar situations",
+            "Consider problems from opposite perspectives",
+            "Embrace failure as a path to innovation"
+          ]
+        },
+        {
+          "name": "Reflect",
+          "definition": "Examine your actions and impact.",
+          "description": "Making time to think carefully about everyday actions, emotions, and thoughts, identifying patterns in successes and failures, and using these insights to refine behaviors and practices.",
+          "indicators": [
+            "Regularly examine actions and their outcomes",
+            "Look for patterns across successes and failures",
+            "Seek feedback as data for reflective analysis",
+            "Practice thoughtful sequencing of events and responses",
+            "Develop self-awareness through ongoing reflection"
+          ]
+        },
+        {
+          "name": "Share Expertise",
+          "definition": "Share what you know with others.",
+          "description": "Contributing to collective knowledge by teaching, mentoring, sharing feedback, and delegating developmental tasks, recognizing that every associate has unique perspectives worth sharing.",
+          "indicators": [
+            "Teach skills and knowledge to colleagues",
+            "Mentor new associates or onboarding buddies",
+            "Share key takeaways from conferences and events",
+            "Delegate developmental tasks to help others grow",
+            "Provide balanced, constructive feedback to peers"
+          ]
+        }
+      ]
+    }
+  ]
+}

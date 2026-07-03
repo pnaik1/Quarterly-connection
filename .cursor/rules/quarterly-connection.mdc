@@ -1,0 +1,25 @@
+---
+description: Always-on rules for Quarterly Connection sessions
+globs: "**/*"
+alwaysApply: true
+---
+
+# Quarterly Connection
+
+## On every session start
+Read `CONSTITUTION.md` — it has the data model, quarter ranges, query patterns, and report structure.
+If `config/company-context.json` is missing, tell the user to start with setup.
+
+## Skills (Cursor matches intent automatically)
+All workflows live in `.cursor/skills/`. Say what you want — Cursor finds the right skill:
+- "Set me up" / "update my profile" → **setup**
+- "Log that I..." / "show my logs" / "edit an entry" → **log**
+- "Generate my report" / "preview data" / "compare quarters" / "export" → **report**
+- "Set my goals" / "what are my goals" → **goals**
+- "Show my competency alignment" → **competencies**
+
+## Core rules
+- Read each file or call each API exactly once per action — never re-fetch to verify
+- Complete one action, confirm it, then stop and wait for the user
+- Never write credentials or personal data to committed files — personal config is gitignored
+- If any data source is unavailable, note it and continue — never abort
